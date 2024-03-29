@@ -20,14 +20,26 @@ public class Test1 {
     }
     public static String generateRandomEmail() {
         String[] domains = {"gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "example.com"};
+
         String[] characters = {"abcdefghijklmnopqrstuvwxyz", "0123456789"};
 
         Random random = new Random();
 
         StringBuilder email = new StringBuilder();
+
+        int usernameLength = random.nextInt(10) + 5; // Random length between 5 to 14 characters
+        for (int i = 0; i < usernameLength; i++) {
+            String characterSet = characters[random.nextInt(2)]; // Selecting either alphabets or numbers
+            char randomChar = characterSet.charAt(random.nextInt(characterSet.length()));
+            email.append(randomChar);
+        }
+
         email.append("@");
+
         String randomDomain = domains[random.nextInt(domains.length)];
+
         email.append(randomDomain);
+
         return email.toString();
     }
 
@@ -121,14 +133,14 @@ public class Test1 {
             e.printStackTrace();
         }
         _globalDriver.findElement(By.xpath("/html/body/div[2]/div[4]/div/div/div/button/span")).click();
-        _globalDriver.findElement(By.xpath("/html/body/div[2]/div[1]/header/div[2]/div/div/div[3]/div/div/div/form/div[1]/div/input")).sendKeys("raudonas vynas");
+        _globalDriver.findElement(By.xpath("/html/body/div[2]/div[1]/header/div[2]/div/div/div[3]/div/div/div/form/div[1]/div/input")).sendKeys("primitivo");
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        WebElement registrationText = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[1]/header/div[2]/div/div/div[3]/div/div/div/form/div[2]/div/div[1]/div[1]/div/div/a/div/div[1]/div")); // reikia paieskos zingsniu
-        Assert.assertEquals(registrationText.getText(), "Raudonas vynas");
+        WebElement registrationText = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[1]/header/div[2]/div/div/div[3]/div/div/div/form/div[2]/div/div[2]/div/div/div/div[1]/div[1]/div/div/a")); // reikia paieskos zingsniu
+        Assert.assertEquals(registrationText.getText(), "Masso Antico Primitivo 0,75 L");
 
     }
 
@@ -161,13 +173,61 @@ public class Test1 {
         _globalDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         WebElement exitPublicationButton = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[4]/div/div/div/button"));
         exitPublicationButton.click();
-        WebElement regsitrationButton = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[4]/div/div/div/button"));
-        regsitrationButton.click();
-        WebElement registration = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[7]/div/div/div/div[2]/div/div[1]/div/button");
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement registrationButton = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[1]/header/div[2]/div/div/div[4]/nav/div[1]/button"));
+        registrationButton.click();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement registration = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[5]/div/div/div/div[2]/div/div[1]/div/button"));
         registration.click();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement creatingAccount= _globalDriver.findElement(By.xpath("/html/body/div[2]/div[5]/div/div/div/div[2]/div/div[1]/div/button"));
+        creatingAccount.click();
+        try {
+            TimeUnit.SECONDS.sleep(15);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        _globalDriver.findElement(By.id("firstname)")).sendKeys("Vardenis");
+
+        _globalDriver.findElement(By.id("lastname")).sendKeys("Pavardenis");
+
+        _globalDriver.findElement(By.xpath("/html/body/div[2]/div[5]/div/div/div/div[2]/div/div/form/div[1]/div/div[4]/div/div[1]/input")).sendKeys(generateRandomEmail());
+
+        _globalDriver.findElement(By.id("phone")).sendKeys("11223344");
+
+        _globalDriver.findElement(By.id("password")).sendKeys("1*2registruotis");
+
+        _globalDriver.findElement(By.xpath("/html/body/div[2]/div[5]/div/div/div/div[2]/div/div/form/div[1]/div/div[7]/div/div/input")).sendKeys("1*2registruotis");
+
+        WebElement rules= _globalDriver.findElement(By.xpath("/html/body/div[2]/div[5]/div/div/div/div[2]/div/div/form/div[1]/div/div[8]/div[1]/div/label"));
+        rules.click();
+
+        WebElement smsConfirmation = _globalDriver.findElement(By.xpath("/html/body/div[2]/div[5]/div/div/div/div[2]/div/div/form/div[1]/div/div[8]/div[2]/div/label"));
+        smsConfirmation.click();
+
+        WebElement register= _globalDriver.findElement(By.xpath("/html/body/div[2]/div[5]/div/div/div/div[2]/div/div/form/div[2]/div/div[2]/button"));
+        register.click();
+
+
 
 
     }
+
+
+
 
 
 
